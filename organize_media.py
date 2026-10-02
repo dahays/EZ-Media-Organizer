@@ -16,7 +16,7 @@ from collections import defaultdict
 from exif import Image as ExifImage
 
 # Supported file extensions
-IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png"}
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".heic"}
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".avi", ".mkv", ".mts"}
 MEDIA_EXTENSIONS = IMAGE_EXTENSIONS | VIDEO_EXTENSIONS
 
@@ -62,7 +62,7 @@ def get_exif_date_taken(filepath):
 
             if img.has_exif and hasattr(img, "datetime_original"):
                 date = datetime.strptime(img.datetime_original, "%Y:%m:%d %H:%M:%S")
-                return date.strftime("%m_%d_%Y")
+                return date.strftime("%Y_%m_%d")
 
     except Exception:
         pass
@@ -75,7 +75,7 @@ def get_modified_date(filepath):
     """
     timestamp = os.path.getmtime(filepath)
     date = datetime.fromtimestamp(timestamp)
-    return date.strftime("%m_%d_%Y")
+    return date.strftime("%Y_%m_%d")
 
 def generate_unique_filename(destination_path):
     """
